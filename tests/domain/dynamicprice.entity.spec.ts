@@ -1,19 +1,4 @@
-type DynamicPriceData = {
-  priceParam: string
-  codeParam: string
-}
-
-class DynamicPrice {
-  price: string
-  code: string
-
-  constructor (
-    params: DynamicPriceData
-  ) {
-    this.price = params.priceParam
-    this.code = params.codeParam
-  }
-}
+import DynamicPrice from '@/domain/entities/dynamicprice.entity'
 
 describe('Dynamic price entity', () => {
   it('should create a dynamic price entity with input data', async () => {

@@ -1,17 +1,4 @@
-type PriceInData = {
-  pricein: string
-  codein: string
-}
-
-class PriceIn {
-  pricein: string
-  codein: string
-
-  constructor (params: PriceInData) {
-    this.pricein = params.pricein
-    this.codein = params.codein
-  }
-}
+import PriceIn from '@/domain/entities/pricein.entity'
 
 describe('Price in entity', () => {
   it('should create a price in entity with input data', () => {
