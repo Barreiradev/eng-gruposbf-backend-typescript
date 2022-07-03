@@ -33,7 +33,7 @@ describe('Axios http client', () => {
     })
   })
 
-  it('should return correct error', async () => {
+  it('should return correct error', () => {
     const mockRequestData = mockHttpRequest()
     const mockedAxios = mockAxios()
     const sut = new AxiosHttpClient()

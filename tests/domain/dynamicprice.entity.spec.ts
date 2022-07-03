@@ -17,7 +17,7 @@ const inputData = {
 }
 
 describe('Dynamic price entity', () => {
-  it('should create a dynamic price entity with input data', async () => {
+  it('should create a dynamic price entity with input data', () => {
     const sut = new DynamicPrice(inputData)
     expect(sut).toEqual({
       price: '259.99',
