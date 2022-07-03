@@ -1,8 +1,8 @@
 export default interface DynamicPriceCalculatorInterface {
-  calculate: (params: DynamicPrice.Input) => Promise<DynamicPrice.Output>
+  calculate: (params: DynamicPriceCalculator.Input) => Promise<DynamicPriceCalculator.Output>
 }
 
-export namespace DynamicPrice {
+export namespace DynamicPriceCalculator {
   export type Input = {
     price: string
     currency: string
