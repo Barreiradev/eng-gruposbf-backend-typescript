@@ -1,4 +1,4 @@
-import { mockAxios, mockHttpRequest } from '@/../tests/mocks/http/mock-axios'
+import { mockAxios, mockHttpRequest, mockHttpResponse } from '@/../tests/mocks/http/mock-axios'
 import HttpClient, { HttpRequest, HttpResponse } from '@/infra/gateways/http.gateway'
 import axios, { AxiosResponse } from 'axios'
 
@@ -54,5 +54,17 @@ describe('Axios http client', () => {
     })
   })
 
-  it('', async () => {})
+  it('should return correct error', async () => {
+    const mockRequestData = mockHttpRequest()
+    const mockedAxios = mockAxios()
+    const sut = new AxiosHttpClient()
+
+    mockedAxios.request.mockRejectedValueOnce({
+      response: mockHttpResponse()
+    })
+
+    const promise = sut.request(mockRequestData)
+
+    expect(promise).toEqual(mockedAxios.request.mock.results[0].value)
+  })
 })
