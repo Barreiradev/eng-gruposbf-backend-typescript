@@ -1,7 +1,7 @@
 {
-  "name": "webservice-template-2022-barreiradev",
+  "name": "eng-gruposbf-backend-typescript",
   "version": "1.0.0",
-  "description": "Webservice template for nodejs projects - 2022",
+  "description": "Code challenge for gruposbf",
   "main": "index.js",
   "scripts": {
     "build": "npx rimraf dist && tsc -p tsconfig-build.json",
@@ -14,7 +14,7 @@
     "test:coverage": "npm run test -- --coverage",
     "prepare": "husky install"
   },
-  "keywords": [],
+  "keywords": ["gruposbf", "code-challenge", "july", "2022"],
   "author": "Bruno Barreira",
   "license": "ISC",
   "devDependencies": {
