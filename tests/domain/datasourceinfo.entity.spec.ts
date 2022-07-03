@@ -12,4 +12,14 @@ describe('Dynamic price entity', () => {
       requestDate: '2022-07-03'
     })
   })
+  it('should create a dynamic price entity with gruposbf-ds-b data source', async () => {
+    const sut = new DataSourceInfo({
+      sourceParam: DataSources.DATABASE,
+      requestDateParam: '2022-07-03'
+    })
+    expect(sut).toEqual({
+      source: 'gruposbf-ds-b',
+      requestDate: '2022-07-03'
+    })
+  })
 })
