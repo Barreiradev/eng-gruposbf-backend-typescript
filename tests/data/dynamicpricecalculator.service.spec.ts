@@ -1,14 +1,14 @@
 import DynamicPriceCalculatorService from '@/data/services/dynamicpricecalculator.service'
 
-const makeInputData = (multiplierParam?: string): any => ({
-  price: '529.99',
-  currency: '0.1876',
-  multiplier: multiplierParam,
-  localeKey: 'USD'
-})
-
 describe('Dynamic price calculator', () => {
   let sut: DynamicPriceCalculatorService
+
+  const makeInputData = (multiplierParam?: string): any => ({
+    price: '529.99',
+    currency: '0.1876',
+    multiplier: multiplierParam,
+    localeKey: 'USD'
+  })
 
   beforeEach(() => {
     sut = new DynamicPriceCalculatorService()
