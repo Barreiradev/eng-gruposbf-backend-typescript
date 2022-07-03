@@ -1,6 +1,6 @@
 export type PriceInData = {
-  pricein: string
-  codein: string
+  priceinParam: string
+  codeinParam: string
 }
 
 export default class PriceIn {
@@ -8,7 +8,7 @@ export default class PriceIn {
   codein: string
 
   constructor (params: PriceInData) {
-    this.pricein = params.pricein
-    this.codein = params.codein
+    this.pricein = params.priceinParam
+    this.codein = params.codeinParam
   }
 }
