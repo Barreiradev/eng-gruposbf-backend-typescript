@@ -1,22 +1,5 @@
-enum DataSources {
-  THIRDPARTY = 'gruposbf-ds-a',
-  DATABASE = 'gruposbf-ds-b'
-}
-
-type DataSourceInfoData = {
-  sourceParam: string
-  requestDateParam: string
-}
-
-class DataSourceInfo {
-  source: string
-  requestDate: string
-
-  constructor (params: DataSourceInfoData) {
-    this.source = params.sourceParam
-    this.requestDate = params.requestDateParam
-  }
-}
+import DataSourceInfo from '@/domain/entities/datasourceinfo.entity'
+import { DataSources } from '@/domain/entities/datasources.enum.entity'
 
 describe('Dynamic price entity', () => {
   it('should create a dynamic price entity with gruposbf-ds-a data source', async () => {

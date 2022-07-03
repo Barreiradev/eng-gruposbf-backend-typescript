@@ -1,7 +1,4 @@
-enum DataSources {
-  THIRDPARTY = 'gruposbf-ds-a',
-  DATABASE = 'gruposbf-ds-b'
-}
+import { DataSources } from './datasources.enum.entity'
 
 export type DataSourceInfoData = {
   sourceParam: DataSources
