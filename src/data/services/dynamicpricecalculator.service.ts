@@ -4,7 +4,7 @@ export default class DynamicPriceCalculatorService implements DynamicPriceCalcul
   async calculate (params: DynamicPriceCalculator.Input): Promise<DynamicPriceCalculator.Output> {
     const priceCast = Number(params.price)
     const currencyCast = Number(params.currency)
-    const multiplierCast = Number(params.multiplier)
+    const multiplierCast = params.multiplier === undefined ? 1 : Number(params.multiplier)
     const dynamicPrice = priceCast * (currencyCast * multiplierCast)
     const local = dynamicPrice.toLocaleString('en-US', {
       style: 'currency',
@@ -14,7 +14,7 @@ export default class DynamicPriceCalculatorService implements DynamicPriceCalcul
       pricein: local,
       codein: params.localeKey,
       ask: params.currency,
-      multiplier: `${params.multiplier}X`
+      multiplier: `${params.multiplier ?? '1'}X`
     }
   }
 }

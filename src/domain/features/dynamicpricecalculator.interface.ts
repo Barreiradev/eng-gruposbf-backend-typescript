@@ -6,7 +6,7 @@ export namespace DynamicPriceCalculator {
   export type Input = {
     price: string
     currency: string
-    multiplier: string
+    multiplier?: string
     localeKey: string
   }
   export type Output = {
