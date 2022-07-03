@@ -51,7 +51,6 @@ describe('Dynamic price service', () => {
       codein: ['USD', 'EUR', 'INR']
     }
     const request = await sut.execute(dynamicPriceInput)
-    console.log(request)
     expect(request).toEqual({
       price: dynamicPriceInput.price,
       code: dynamicPriceInput.code,
