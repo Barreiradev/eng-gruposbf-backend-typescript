@@ -1,32 +1,8 @@
-import { mockAxios } from '@/../tests/mocks/http/mock-axios'
+import { mockAxios, mockHttpRequest } from '@/../tests/mocks/http/mock-axios'
+import HttpClient, { HttpRequest, HttpResponse } from '@/infra/gateways/http.gateway'
 import axios, { AxiosResponse } from 'axios'
 
 jest.mock('axios')
-
-const mockHttpRequest = (): HttpRequest => ({
-  url: 'https://anyurlfortest.com',
-  method: 'get',
-  body: { key: 'any_test_value' },
-  headers: { 'Content-Type': 'application/json' }
-})
-
-type HttpMethod = 'post' | 'get' | 'put' | 'delete'
-
-type HttpRequest = {
-  url: string
-  method: HttpMethod
-  body?: any
-  headers?: any
-}
-
-type HttpResponse<T = any> = {
-  statusCode: number
-  body?: T
-}
-
-export default interface HttpClient<R = any> {
-  request: (data: HttpRequest) => Promise<HttpResponse<R>>
-}
 
 class AxiosHttpClient implements HttpClient {
   async request (data: HttpRequest): Promise<HttpResponse<any>> {
@@ -63,4 +39,20 @@ describe('Axios http client', () => {
       headers: mockRequestData.headers
     })
   })
+
+  it('should return correct response', async () => {
+    const mockRequestData = mockHttpRequest()
+    const mockedAxios = mockAxios()
+    const sut = new AxiosHttpClient()
+
+    const httpResponse = await sut.request(mockRequestData)
+    const mockedAxiosResponse = await mockedAxios.request.mock.results[0].value
+
+    expect(httpResponse).toEqual({
+      statusCode: mockedAxiosResponse.status,
+      body: mockedAxiosResponse.data
+    })
+  })
+
+  it('', async () => {})
 })
