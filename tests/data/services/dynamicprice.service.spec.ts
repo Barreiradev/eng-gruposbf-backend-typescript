@@ -1,5 +1,5 @@
 import DynamicPriceInterface, { DynamicPrice } from '@/domain/features/dynamicprice.interface'
-import { GiveMeAValidAwesomeApiEconomiaResponse } from '../mocks/http/mock.awesomeapieconomia'
+import { GiveMeAValidAwesomeApiEconomiaResponse } from '../../mocks/http/mock.awesomeapieconomia'
 
 function calculate (price: string, pricein: string, multiplier: string, localeKey: string): DynamicPrice.DynamicPriceResult {
   const priceCast = Number(price)
