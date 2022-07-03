@@ -1,28 +1,7 @@
 import { mockAxios, mockHttpRequest, mockHttpResponse } from '@/../tests/mocks/http/mock-axios'
-import HttpClient, { HttpRequest, HttpResponse } from '@/infra/gateways/http.gateway'
-import axios, { AxiosResponse } from 'axios'
+import AxiosHttpClient from '@/infra/http/axioshttpclient'
 
 jest.mock('axios')
-
-class AxiosHttpClient implements HttpClient {
-  async request (data: HttpRequest): Promise<HttpResponse<any>> {
-    let axiosResponse: AxiosResponse
-    try {
-      axiosResponse = await axios.request({
-        url: data.url,
-        method: data.method,
-        data: data.body,
-        headers: data.headers
-      })
-    } catch (error) {
-      axiosResponse = error as any
-    }
-    return {
-      statusCode: axiosResponse.status,
-      body: axiosResponse.data
-    }
-  }
-}
 
 describe('Axios http client', () => {
   it('should call axios with correct values', async () => {
