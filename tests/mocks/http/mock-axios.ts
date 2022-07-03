@@ -1,3 +1,4 @@
+import { HttpRequest } from '@/infra/gateways/http.gateway'
 import axios from 'axios'
 
 export const mockHttpResponse = (): any => ({
@@ -10,3 +11,10 @@ export const mockAxios = (): jest.Mocked<typeof axios> => {
   mockedAxios.request.mockClear().mockResolvedValue(mockHttpResponse())
   return mockedAxios
 }
+
+export const mockHttpRequest = (): HttpRequest => ({
+  url: 'https://anyurlfortest.com',
+  method: 'get',
+  body: { key: 'any_test_value' },
+  headers: { 'Content-Type': 'application/json' }
+})
