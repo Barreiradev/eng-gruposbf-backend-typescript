@@ -11,19 +11,6 @@ type HttpRequest = {
   codein: string[]
 }
 
-// type ModelPriceIn = {
-//   in: PriceIn
-//   ask: string
-//   multiplier: string
-// }
-
-// type Model = {
-//   price: string
-//   code: string
-//   in: ModelPriceIn[]
-//   datasourceinfo: DataSourceInfo
-// }
-
 export class DynamicPriceController extends Controller {
   constructor (
     private readonly dynamicPriceService: DynamicPriceService
