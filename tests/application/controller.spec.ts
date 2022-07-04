@@ -62,6 +62,25 @@ describe('Controller', () => {
     jest.clearAllMocks()
   })
 
+  it('should return 500 if perform method fail for any reason', async () => {
+    const error = new ServerError(new Error('[ANY_INFRA_ERROR]'))
+    jest.spyOn(sut, 'perform').mockResolvedValueOnce({
+      statusCode: 500,
+      data: error
+    })
+
+    const httpResponse = await sut.handle({
+      price: '529.99',
+      code: 'BRL',
+      codein: ['USD', 'EUR']
+    })
+
+    expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: error
+    })
+  })
+
   it('should return same result as perform', async () => {
     const httpResponse = await sut.handle({
       price: '529.99',
