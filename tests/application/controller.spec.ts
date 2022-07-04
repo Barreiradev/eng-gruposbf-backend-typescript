@@ -1,21 +1,6 @@
 import InternalServerError from '@/domain/errors/internal-server-error'
 import ServerError from '@/domain/errors/server-error'
-
-/**
- * MOVE TO: APPLICATION>HELPERS
- */
-type HttpResponse<T = any> = {
-  statusCode: number
-  data: T
-}
-
-/**
- * MOVE TO: APPLICATION>HELPERS
- */
-const serverError = (error: Error): HttpResponse<Error> => ({
-  statusCode: 500,
-  data: new ServerError(error)
-})
+import { HttpResponse, serverError } from '@/application/helpers/http/http-helpers'
 
 /**
  * MOVE TO: APPLICATION>CONTROLLERS
