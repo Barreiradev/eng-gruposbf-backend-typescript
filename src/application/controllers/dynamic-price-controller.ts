@@ -1,7 +1,5 @@
 import DynamicPriceService from '@/data/services/dynamicprice.service'
 import { DynamicPrice } from '@/domain/features/dynamicprice.interface'
-// import DataSourceInfo from '@/domain/entities/datasourceinfo.entity'
-// import PriceIn from '@/domain/entities/pricein.entity'
 import { HttpResponse, success } from '../helpers/http/http-helpers'
 import Controller from './controller'
 
