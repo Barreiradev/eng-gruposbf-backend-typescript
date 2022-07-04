@@ -1,21 +1,7 @@
 import InternalServerError from '@/domain/errors/internal-server-error'
 import ServerError from '@/domain/errors/server-error'
-import { HttpResponse, serverError } from '@/application/helpers/http/http-helpers'
-
-/**
- * MOVE TO: APPLICATION>CONTROLLERS
- */
-abstract class Controller {
-  abstract perform (httpRequest: any): Promise<HttpResponse>
-
-  async handle (httpRequest: any): Promise<HttpResponse> {
-    try {
-      return await this.perform(httpRequest)
-    } catch (error) {
-      return serverError(error as Error)
-    }
-  }
-}
+import { HttpResponse } from '@/application/helpers/http/http-helpers'
+import Controller from '@/application/controllers/controller'
 
 class ControllerStub extends Controller {
   result: HttpResponse = {
