@@ -1,4 +1,4 @@
-import { HttpRequest } from '@/infra/gateways/http.gateway'
+import { HttpRequest } from '@/data/gateways/http.gateway'
 import axios from 'axios'
 
 export const mockHttpResponse = (): any => ({

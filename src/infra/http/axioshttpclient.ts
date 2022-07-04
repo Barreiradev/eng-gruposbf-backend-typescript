@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import HttpClient, { HttpRequest, HttpResponse } from '../gateways/http.gateway'
+import HttpClient, { HttpRequest, HttpResponse } from '../../data/gateways/http.gateway'
 
 export default class AxiosHttpClient implements HttpClient {
   async request (data: HttpRequest): Promise<HttpResponse<any>> {
