@@ -1,7 +1,7 @@
-# nodejs-template-2022
+# Grupo SBF - Code Challenge
 
 ## Description
-NodeJS webservice template. Built in June 2022.
+Calculate a dynamic price based on a price, currency code and codein currency codes. Get currency prices from a third party api, case the third party api is unavailable it queries data from a database.
 
 ## Features available
 
@@ -9,10 +9,14 @@ NodeJS webservice template. Built in June 2022.
 - Typescript
 - NodeJS
 - Jest
+- Axios
 
 ## Setup project
 
 ### Run unit tests
+```
+npm run test
+```
 
 ### Run integration tests
 
