@@ -4,5 +4,5 @@ import { makeDynamicPriceController } from '../factories/dynamic-price-controlle
 
 export default (router: Router): void => {
   const dynamicPriceController = makeDynamicPriceController()
-  router.get('/convert', adaptExpressRoute(dynamicPriceController))
+  router.get('/convert/price/:price/code/:code/codein/:codein', adaptExpressRoute(dynamicPriceController))
 }
