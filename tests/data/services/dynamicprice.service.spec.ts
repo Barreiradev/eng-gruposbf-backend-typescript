@@ -16,17 +16,17 @@ describe('Dynamic price service', () => {
 
   beforeEach(() => {
     httpClient = new AxiosHttpClient()
-    dynamicPriceCalculator = new DynamicPriceCalculatorService()
-    sut = new DynamicPriceService(httpClient, dynamicPriceCalculator)
-  })
-
-  it('should calculate a dynamic price successfully', async () => {
-    httpClient.request = jest.fn().mockImplementationOnce(() => {
+    httpClient.request = jest.fn().mockImplementation(() => {
       return {
         statusCode: 200,
         body: GiveMeAValidAwesomeApiEconomiaResponse
       }
     })
+    dynamicPriceCalculator = new DynamicPriceCalculatorService()
+    sut = new DynamicPriceService(httpClient, dynamicPriceCalculator)
+  })
+
+  it('should calculate a dynamic price successfully', async () => {
     const request = await sut.execute(dynamicPriceInput)
     expect(request).toEqual({
       price: dynamicPriceInput.price,
@@ -38,7 +38,7 @@ describe('Dynamic price service', () => {
       }
     })
   })
-  it.skip('should call httpClient with correct params', async () => {
+  it('should call httpClient with correct params', async () => {
     const spyAxios = jest.spyOn(httpClient, 'request')
     await sut.execute(dynamicPriceInput)
     expect(spyAxios).toHaveBeenCalled()
@@ -48,7 +48,11 @@ describe('Dynamic price service', () => {
       method: 'get'
     })
   })
-  it.skip('should rethrow if http client throws', () => {})
+  it.skip('should rethrow if httpClient throws', async () => {
+    httpClient.request = jest.fn().mockRejectedValueOnce(new Error('[SOMETHING WENT WRONG]'))
+    const request = await sut.execute(dynamicPriceInput)
+    console.log('[UNIT TEST]: ', request)
+  })
   it.skip('should get data from database if http client fails', () => {})
   it.skip('should rethrow if database throws', () => {})
 })
