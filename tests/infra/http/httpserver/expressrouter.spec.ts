@@ -88,4 +88,17 @@ describe('ExpressRouter', () => {
     expect(res.json).toHaveBeenCalledWith({ error: 'ANY_ERROR' })
     expect(res.json).toHaveBeenCalledTimes(1)
   })
+
+  it('should respond with 500 and valid error', async () => {
+    controller.handle.mockResolvedValueOnce({
+      statusCode: 500,
+      data: new Error('ANY_ERROR')
+    })
+    await sut(req, res, next)
+
+    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledTimes(1)
+    expect(res.json).toHaveBeenCalledWith({ error: 'ANY_ERROR' })
+    expect(res.json).toHaveBeenCalledTimes(1)
+  })
 })
