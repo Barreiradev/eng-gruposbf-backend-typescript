@@ -14,9 +14,9 @@ describe('Dynamic price calculator', () => {
     sut = new DynamicPriceCalculatorService()
   })
 
-  it('should calculate dynamic price with multipliar 1X', async () => {
+  it('should calculate dynamic price with multipliar 1X', () => {
     const inputData = makeInputData('1')
-    const call = await sut.calculate(inputData)
+    const call = sut.calculate(inputData)
     expect(call).toEqual({
       pricein: '$99.43',
       codein: inputData.localeKey,
@@ -27,7 +27,7 @@ describe('Dynamic price calculator', () => {
 
   it('should calculate dynamic price with multipliar 2X', async () => {
     const inputData = makeInputData('2')
-    const call = await sut.calculate(inputData)
+    const call = sut.calculate(inputData)
     expect(call).toEqual({
       pricein: '$198.85',
       codein: inputData.localeKey,
@@ -38,7 +38,7 @@ describe('Dynamic price calculator', () => {
 
   it('should calculate dynamic price if there are no multiplier in params', async () => {
     const inputData = makeInputData()
-    const call = await sut.calculate(inputData)
+    const call = sut.calculate(inputData)
     expect(call).toEqual({
       pricein: '$99.43',
       codein: inputData.localeKey,

@@ -1,7 +1,7 @@
 import DynamicPriceCalculatorInterface, { DynamicPriceCalculator } from '@/domain/features/dynamicpricecalculator.interface'
 
 export default class DynamicPriceCalculatorService implements DynamicPriceCalculatorInterface {
-  async calculate (params: DynamicPriceCalculator.Input): Promise<DynamicPriceCalculator.Output> {
+  calculate (params: DynamicPriceCalculator.Input): DynamicPriceCalculator.Output {
     const priceCast = Number(params.price)
     const currencyCast = Number(params.currency)
     const multiplierCast = params.multiplier === undefined ? 1 : Number(params.multiplier)
