@@ -66,4 +66,13 @@ describe('ExpressRouter', () => {
     expect(controller.handle).toHaveBeenCalledWith({})
     expect(controller.handle).toHaveBeenCalledTimes(1)
   })
+
+  it('should respond with 200 and valid data', async () => {
+    await sut(req, res, next)
+
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.status).toHaveBeenCalledTimes(1)
+    expect(res.json).toHaveBeenCalledWith(mockDataResponse)
+    expect(res.json).toHaveBeenCalledTimes(1)
+  })
 })
