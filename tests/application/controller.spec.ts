@@ -9,6 +9,13 @@ export class ServerError extends Error {
   }
 }
 
+export class InternalServerError extends Error {
+  constructor () {
+    super('Internal Server Error')
+    this.name = 'INTERNAL_SERVER_ERROR'
+  }
+}
+
 /**
  * MOVE TO: APPLICATION>HELPERS
  */
@@ -60,6 +67,25 @@ describe('Controller', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
+  })
+
+  it('should return 500 if perform method fail', async () => {
+    const error = new ServerError(new InternalServerError())
+    jest.spyOn(sut, 'perform').mockResolvedValueOnce({
+      statusCode: 500,
+      data: error
+    })
+
+    const httpResponse = await sut.handle({
+      price: '529.99',
+      code: 'BRL',
+      codein: ['USD', 'EUR']
+    })
+
+    expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: error
+    })
   })
 
   it('should return 500 if perform method fail for any reason', async () => {
