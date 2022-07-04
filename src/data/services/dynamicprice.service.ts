@@ -18,7 +18,7 @@ export default class DynamicPriceService implements DynamicPriceInterface {
     const dynamicPriceList: DynamicPrice.DynamicPriceResult[] = []
     for (const keypart of params.codein) {
       const key = `${params.code}${keypart}` as keyof typeof httpResponse[0]
-      const askVal = httpResponse[0].body.results[key].ask
+      const askVal = httpResponse[0].body[key].ask
       const dynamicPrice = this.dynamicPriceCalculator.calculate({
         price: params.price,
         currency: askVal,
