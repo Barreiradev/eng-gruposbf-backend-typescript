@@ -1,7 +1,8 @@
 # Grupo SBF - Code Challenge
 
 ## Description
-Calculate a dynamic price based on a price, currency code and codein currency codes. Get currency prices from a third party api, case the third party api is unavailable it queries data from a database.
+Calculate a dynamic price based on a price, currency code and codein currency codes.\
+Get currency prices from a third party api, case the third party api is unavailable it queries data from a database.
 
 ## Features available
 
@@ -27,3 +28,7 @@ npm run test
 ## Collections and utilities
 
 ## Software design/architecture
+This application uses clean architecture approach.\
+Follow the diagram below and the teardown section for better understanding.
+
+![Application architecute diagram](/app-architecture.png)
