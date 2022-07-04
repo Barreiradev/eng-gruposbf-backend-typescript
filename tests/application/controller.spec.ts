@@ -1,20 +1,5 @@
-/**
- * MOVE TO: DOMAIN>ERRORS
- */
-export class ServerError extends Error {
-  constructor (error?: Error) {
-    super('Server failed. Try again soon or contact us.')
-    this.name = 'ServerError'
-    this.stack = error?.stack
-  }
-}
-
-export class InternalServerError extends Error {
-  constructor () {
-    super('Internal Server Error')
-    this.name = 'INTERNAL_SERVER_ERROR'
-  }
-}
+import InternalServerError from '@/domain/errors/internal-server-error'
+import ServerError from '@/domain/errors/server-error'
 
 /**
  * MOVE TO: APPLICATION>HELPERS
