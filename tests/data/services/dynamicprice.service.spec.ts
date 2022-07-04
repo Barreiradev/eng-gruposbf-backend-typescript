@@ -16,12 +16,7 @@ describe('Dynamic price service', () => {
 
   beforeEach(() => {
     httpClient = new AxiosHttpClient()
-    httpClient.request = jest.fn().mockImplementation(() => {
-      return {
-        statusCode: 200,
-        body: GiveMeAValidAwesomeApiEconomiaResponse
-      }
-    })
+    httpClient.request = jest.fn().mockImplementation(() => GiveMeAValidAwesomeApiEconomiaResponse)
     dynamicPriceCalculator = new DynamicPriceCalculatorService()
     sut = new DynamicPriceService(httpClient, dynamicPriceCalculator)
   })
@@ -31,11 +26,7 @@ describe('Dynamic price service', () => {
     expect(request).toEqual({
       price: dynamicPriceInput.price,
       code: dynamicPriceInput.code,
-      in: expect.any(Array),
-      datasourceinfo: {
-        requestDate: '2022-07-03',
-        source: 'gruposbf-ds-a'
-      }
+      in: expect.any(Array)
     })
   })
   it('should call httpClient with correct params', async () => {

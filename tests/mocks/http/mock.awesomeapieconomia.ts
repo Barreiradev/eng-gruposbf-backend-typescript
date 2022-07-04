@@ -1,8 +1,6 @@
-import DataSourceInfo from '@/domain/entities/datasourceinfo.entity'
-import { DataSources } from '@/domain/entities/datasources.enum.entity'
-
 export const GiveMeAValidAwesomeApiEconomiaResponse = {
-  results: {
+  statusCode: 200,
+  body: {
     BRLUSD: {
       code: 'BRL',
       codein: 'USD',
@@ -42,9 +40,5 @@ export const GiveMeAValidAwesomeApiEconomiaResponse = {
       timestamp: '1656709142',
       create_date: '2022-07-01 17:59:02'
     }
-  },
-  datasourceinfo: new DataSourceInfo({
-    sourceParam: DataSources.THIRDPARTY,
-    requestDateParam: '2022-07-03'
-  })
+  }
 }
