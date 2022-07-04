@@ -2,36 +2,8 @@ import { NextFunction, Request, RequestHandler, Response } from 'express'
 import Controller from '@/application/controllers/controller'
 import { getMockReq, getMockRes } from '@jest-mock/express'
 import { mock, MockProxy } from 'jest-mock-extended'
-
-const mockDataResponse = {
-  price: '529,99',
-  code: 'BRL',
-  in: [
-    {
-      pricein: '$99.40',
-      codein: 'USD',
-      ask: '0.1876',
-      multiplier: '1X'
-    }
-  ],
-  datasourceinfo: {
-    source: 'gruposbf-ds-a',
-    requestDate: '2022-07-03'
-  }
-}
-
-export const adaptExpressRoute = (controller: Controller): RequestHandler => {
-  return async (request, response) => {
-    const httpResponse = await controller.handle({ ...request.body })
-    if (httpResponse.statusCode === 200) {
-      response.status(httpResponse.statusCode).json(httpResponse.data)
-    } else {
-      response.status(httpResponse.statusCode).json({
-        error: httpResponse.data.message
-      })
-    }
-  }
-}
+import { GiveMeAValidWebServerResponse } from '@/../tests/mocks/http/mock-webserver-response'
+import { adaptExpressRoute } from '@/infra/http/expressrouter'
 
 describe('ExpressRouter', () => {
   let req: Request
@@ -47,7 +19,7 @@ describe('ExpressRouter', () => {
     controller = mock()
     controller.handle.mockResolvedValue({
       statusCode: 200,
-      data: mockDataResponse
+      data: GiveMeAValidWebServerResponse
     })
     sut = adaptExpressRoute(controller)
   })
@@ -72,7 +44,7 @@ describe('ExpressRouter', () => {
 
     expect(res.status).toHaveBeenCalledWith(200)
     expect(res.status).toHaveBeenCalledTimes(1)
-    expect(res.json).toHaveBeenCalledWith(mockDataResponse)
+    expect(res.json).toHaveBeenCalledWith(GiveMeAValidWebServerResponse)
     expect(res.json).toHaveBeenCalledTimes(1)
   })
 
