@@ -7,10 +7,11 @@ module.exports = {
   collectCoverage: false,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/**/*.interface.ts',
     '!<rootDir>/src/main/**',
     '!<rootDir>/src/**/index.ts'],
   coverageDirectory: 'coverage',
-  coverageProvider: 'babel',
+  coverageProvider: 'v8',
   moduleNameMapper: {
     '@/tests/(.+)': '<rootDir>/tests/$1',
     '@/(.+)': '<rootDir>/src/$1'
