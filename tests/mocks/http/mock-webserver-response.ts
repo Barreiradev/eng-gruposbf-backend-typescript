@@ -1,7 +1,7 @@
 import { DataSources } from '@/domain/entities/datasources.enum.entity'
 
 export const GiveMeAValidWebServerResponse = {
-  price: '529,99',
+  price: '529.99',
   code: 'BRL',
   in: [
     {

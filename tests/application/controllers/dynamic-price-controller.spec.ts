@@ -27,4 +27,17 @@ describe('Dynamic price controller', () => {
     expect(dynamicPriceService.execute).toHaveBeenCalledWith(mockInputData)
     expect(dynamicPriceService.execute).toHaveBeenCalledTimes(1)
   })
+
+  it('should return 200 if execute method succeeds', async () => {
+    const httpResponse = await sut.perform(mockInputData)
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      data: {
+        price: mockInputData.price,
+        code: mockInputData.code,
+        in: GiveMeAValidWebServerResponse.in,
+        datasourceinfo: GiveMeAValidWebServerResponse.datasourceinfo
+      }
+    })
+  })
 })
