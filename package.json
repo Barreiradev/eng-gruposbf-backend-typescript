@@ -12,6 +12,8 @@
     "test:watch": "npm run test -- --watch",
     "test:staged": "npm run test -- --findRelatedTests",
     "test:coverage": "npm run test -- --coverage",
+    "test:ci:unit": "npm run test --",
+    "test:ci:coverage": "npm run test -- --coverage",
     "prepare": "husky install"
   },
   "keywords": ["gruposbf", "code-challenge", "july", "2022"],
