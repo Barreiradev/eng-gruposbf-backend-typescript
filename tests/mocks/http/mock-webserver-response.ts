@@ -1,3 +1,5 @@
+import { DataSources } from '@/domain/entities/datasources.enum.entity'
+
 export const GiveMeAValidWebServerResponse = {
   price: '529,99',
   code: 'BRL',
@@ -10,7 +12,7 @@ export const GiveMeAValidWebServerResponse = {
     }
   ],
   datasourceinfo: {
-    source: 'gruposbf-ds-a',
+    source: DataSources.THIRDPARTY,
     requestDate: '2022-07-03'
   }
 }
