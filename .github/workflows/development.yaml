@@ -15,7 +15,7 @@ jobs:
           node-version: '14'
       - name: === INSTALL APP ===
         run: npm install
-      - name: === TEST COVERAGE ===
+      - name: === TEST UNIT ===
         run: npm run test:ci:unit
       - name: === [HEROKU][DEVELOPMENT]DEPLOY===
         uses: akhileshns/heroku-deploy@v3.12.12
