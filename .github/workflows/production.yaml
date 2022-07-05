@@ -17,9 +17,8 @@ jobs:
         run: npm install
       - name: === TEST COVERAGE ===
         run: npm run test:ci:coverage
-      - name: === DEPLOY APP [HEROKU] ===
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_SECRET}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "production-gruposbf-cc"
           heroku_email: "barreiradev@gmail.com"
