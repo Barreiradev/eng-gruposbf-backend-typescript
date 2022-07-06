@@ -24,4 +24,12 @@ describe('Codein ISO currency list', () => {
 
     expect(error).toEqual(new RequiredFieldError('codein'))
   })
+
+  it('should return empty if codein is valid', () => {
+    const sut = new CodeInListValidator(['BRL', 'USD'], 'codein')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(undefined)
+  })
 })
