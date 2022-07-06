@@ -96,5 +96,10 @@ describe('Dynamic price service', () => {
       })
     })
   })
-  it.skip('should rethrow if database throws', () => {})
+  it('should rethrow if database throws', async () => {
+    httpClient.request = jest.fn().mockRejectedValueOnce(new Error('[SOMETHING WENT WRONG]'))
+    databaseRepo.load = jest.fn().mockRejectedValueOnce(new Error('[SOMETHING WENT WRONG]'))
+    const promise = sut.execute(dynamicPriceInput)
+    await expect(promise).rejects.toThrow()
+  })
 })
