@@ -2,7 +2,7 @@ import { CodeInListValidator } from './codein-list-validator'
 import IsoCodeCurrencyValidator from './iso-currency-code-validator'
 import { RequiredStringValidator } from './required-string-validator'
 import StringOfNumberValidator from './string-of-numbers-validator'
-import { Validator } from './validator'
+import { Validator } from './validator.interface'
 
 export class ValidationBuilder {
   private constructor (

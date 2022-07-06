@@ -2,7 +2,7 @@ import DynamicPriceService from '@/data/services/dynamicprice.service'
 import { DynamicPrice } from '@/domain/features/dynamicprice.interface'
 import { HttpResponse, success } from '../helpers/http/http-helpers'
 import { ValidationBuilder } from '../validation/validation-builder'
-import { Validator } from '../validation/validator'
+import { Validator } from '../validation/validator.interface'
 import Controller from './controller'
 
 type HttpRequest = {

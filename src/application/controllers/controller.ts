@@ -1,7 +1,7 @@
 import { HttpRequest } from '@/data/gateways/http-gateway.interface'
 import { badRequest, HttpResponse, serverError } from '../helpers/http/http-helpers'
 import ValidationComposite from '../validation/composite'
-import { Validator } from '../validation/validator'
+import { Validator } from '../validation/validator.interface'
 
 export default abstract class Controller {
   abstract perform (httpRequest: any): Promise<HttpResponse>

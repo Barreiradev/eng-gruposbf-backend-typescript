@@ -1,4 +1,4 @@
-import { Validator } from '@/application/validation/validator'
+import { Validator } from '@/application/validation/validator.interface'
 import { mock, MockProxy } from 'jest-mock-extended'
 import ValidationComposite from '@/application/validation/composite'
 
