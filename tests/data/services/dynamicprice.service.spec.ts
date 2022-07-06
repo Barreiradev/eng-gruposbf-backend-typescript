@@ -20,6 +20,30 @@ describe('Dynamic price service', () => {
     codein: ['USD', 'EUR', 'INR']
   }
 
+  const dbCurrencyDataMock = [
+    {
+      reskey: 'BRLINR',
+      code: 'BRL',
+      codein: 'INR',
+      ask: '14.65',
+      create_date: '2022-07-06 09:54:02'
+    },
+    {
+      reskey: 'BRLEUR',
+      code: 'BRL',
+      codein: 'EUR',
+      ask: '0.182',
+      create_date: '2022-07-06 09:54:02'
+    },
+    {
+      reskey: 'BRLUSD',
+      code: 'BRL',
+      codein: 'USD',
+      ask: '0.1851',
+      create_date: '2022-07-06 09:54:36'
+    }
+  ]
+
   beforeEach(() => {
     httpClient = new AxiosHttpClient()
     httpClient.request = jest.fn().mockImplementation(() => GiveMeAValidAwesomeApiEconomiaResponse)
@@ -56,6 +80,21 @@ describe('Dynamic price service', () => {
     const promise = sut.execute(dynamicPriceInput)
     await expect(promise).rejects.toThrow()
   })
-  it.skip('should get data from database if http client fails', () => {})
+  it('should get data from database if http client fails', async () => {
+    httpClient.request = jest.fn().mockResolvedValueOnce(() => new Error('[SOMETHING WENT WRONG]'))
+    databaseRepo.load = jest.fn().mockResolvedValueOnce(dbCurrencyDataMock)
+
+    const response = await sut.execute(dynamicPriceInput)
+
+    expect(response).toEqual({
+      price: dynamicPriceInput.price,
+      code: dynamicPriceInput.code,
+      in: expect.any(Array),
+      datasourceinfo: new DataSourceInfo({
+        sourceParam: DataSources.DATABASE,
+        requestDateParam: new Date(Date.now()).toString()
+      })
+    })
+  })
   it.skip('should rethrow if database throws', () => {})
 })
