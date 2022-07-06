@@ -27,7 +27,7 @@ export class DynamicPriceController extends Controller {
     return [
       ...ValidationBuilder.of({ value: httpRequest.price, fieldName: 'price' }).required().isNumber().build(),
       ...ValidationBuilder.of({ value: httpRequest.code, fieldName: 'code' }).required().isISOCode().build(),
-      ...ValidationBuilder.of({ value: httpRequest.codein, fieldName: 'codein' }).required().isISOCodeList().build()
+      ...ValidationBuilder.of({ value: httpRequest.codein, fieldName: 'codein' }).isISOCodeList().build()
     ]
   }
 }
