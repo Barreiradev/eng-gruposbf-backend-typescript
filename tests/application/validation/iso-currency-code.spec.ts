@@ -9,4 +9,11 @@ describe('IsoCodeCurrencyValidator', () => {
 
     expect(error).toEqual(new ISOCurrencyCodeError('code'))
   })
+  it('should return empty if code is valid', () => {
+    const sut = new IsoCodeCurrencyValidator('BRL', 'code')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(undefined)
+  })
 })
