@@ -2,6 +2,10 @@ import DynamicPriceService from '@/data/services/dynamicprice.service'
 import { mock, MockProxy } from 'jest-mock-extended'
 import { DynamicPriceController } from '@/application/controllers/dynamic-price-controller'
 import { GiveMeAValidWebServerResponse } from '../../mocks/http/mock-webserver-response'
+import StringOfNumberValidator from '@/application/validation/string-of-numbers-validator'
+import { RequiredStringValidator } from '@/application/validation/required-string-validator'
+import IsoCodeCurrencyValidator from '@/application/validation/iso-currency-code-validator'
+import { CodeInListValidator } from '@/application/validation/codein-list-validator'
 
 describe('Dynamic price controller', () => {
   let dynamicPriceService: MockProxy<DynamicPriceService>
@@ -20,6 +24,22 @@ describe('Dynamic price controller', () => {
 
   beforeEach(() => {
     sut = new DynamicPriceController(dynamicPriceService)
+  })
+
+  it('should build Validators correctly', async () => {
+    const validators = await sut.buildValidators({
+      price: '',
+      code: 'BRL',
+      codein: ['USD', 'EUR', 'INR']
+    })
+
+    expect(validators).toEqual([
+      new RequiredStringValidator('', 'price'),
+      new StringOfNumberValidator('', 'price'),
+      new RequiredStringValidator('BRL', 'code'),
+      new IsoCodeCurrencyValidator('BRL', 'code'),
+      new CodeInListValidator(['USD', 'EUR', 'INR'], 'codein')
+    ])
   })
 
   it('should call DynamicPriceController with correct params', async () => {
