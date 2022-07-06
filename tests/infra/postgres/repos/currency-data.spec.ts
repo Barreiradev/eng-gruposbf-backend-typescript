@@ -1,33 +1,9 @@
-import { LoadCurrencyDataRepository, LoadCurrencyDataRepositoryInterface } from '@/data/repos/currency-data.interface'
-import { getConnection, getRepository, Repository } from 'typeorm'
-
-import { IBackup, IMemoryDb, newDb } from 'pg-mem'
 import { PgCurrency } from '@/infra/postgres/entities/currency'
+import { PgCurrencyDataRepository } from '@/infra/postgres/repos/currency-data'
+import { makeFakeDb } from '../../../mocks/postgres/connection'
 
-export const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
-  const db = newDb()
-  const connection = await db.adapters.createTypeormConnection({
-    type: 'postgres',
-    entities: entities ?? ['src/infra/postgres/entities/currency.ts']
-  })
-  await connection.synchronize()
-  return db
-}
-
-export class PgCurrencyDataRepository implements LoadCurrencyDataRepositoryInterface {
-  async load (): Promise<LoadCurrencyDataRepository.Output> {
-    const rawQuery = `
-    SELECT request_date, reskey, code, codein, ask, create_date
-    FROM pg_currency
-    ORDER BY request_date DESC
-    LIMIT 3;`
-    const pgCurrencyRepo = getRepository(PgCurrency)
-    const findData = await pgCurrencyRepo.query(rawQuery)
-    if (findData !== undefined) {
-      return findData
-    }
-  }
-}
+import { IBackup } from 'pg-mem'
+import { getConnection, getRepository, Repository } from 'typeorm'
 
 describe('PgCurrencyDataRepository', () => {
   let sut: PgCurrencyDataRepository
@@ -80,9 +56,15 @@ describe('PgCurrencyDataRepository', () => {
       }
       await insertCurrencies()
 
-      const findCurrencyData = await sut.load()
+      const findCurrencyData = await sut.load() as unknown as PgCurrency[]
 
-      expect(findCurrencyData).toEqual(expect.any(Array))
+      expect(findCurrencyData.length).toBe(3)
+    })
+
+    it('should return an empty List if currency data dont exists', async () => {
+      const findCurrencyData = await sut.load() as unknown as PgCurrency[]
+
+      expect(findCurrencyData.length).toBe(0)
     })
   })
 })
