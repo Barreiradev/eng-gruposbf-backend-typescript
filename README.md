@@ -5,6 +5,7 @@ Calculate a dynamic price based on a price, currency code and codein currency co
 Get currency prices from a third party api, case the third party api is unavailable it queries data from a database.
 
 ## Features available
+- Calculate a dynamic price based on BRL(Real) to USD, EUR and INR
 
 ## Built with
 - Typescript
@@ -96,3 +97,7 @@ Follow the diagram below and the teardown section for better understanding.
   - Depends on presentation, infra and data layer
   - This layer will bootstrap all necessary instances to fulfill dependency injection and return a webserver
   - Http routes uses Express adapter and factory methods
+
+## Features available
+  - Change base to use param code for conversion such as USD to BRL
+  - Add a database container to docker-compose to use all data sources available
