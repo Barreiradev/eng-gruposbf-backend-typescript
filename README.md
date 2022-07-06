@@ -12,6 +12,8 @@ Get currency prices from a third party api, case the third party api is unavaila
 - Express
 - Axios
 - Jest
+- Typeorm
+- Postgres
 
 ## Setup project
 **Build**
@@ -29,19 +31,29 @@ npm run start
 npm run test
 ```
 
-### Run integration tests
-
-### Run project - without Docker
-
 ### Run project - with Docker
+**Run the below command inside project folder**
+```
+docker-compose up
+```
 
 ## Collections and utilities
+
+### Deployment
+The application is running on Heroku.\
+There are two environments: **development** and **production**.\
+Github actions execute the deploy when push happens on branch **develop** and **main**.\
+(This is not happening automatically 'cause I don't have an enterprise account, sorry. But you can trigger the actions on the panel.)\
+
+### Postman
+Check the **__postman__** folder for a collection with the **development** and **production** urls to test service online.
+
 
 ## Software design/architecture
 This application uses clean architecture approach.\
 Follow the diagram below and the teardown section for better understanding.
 
-![Application architecute diagram](/app-architecture.png)
+![Application architecute diagram](/arch-core-gruposbf.png)
 
 - **Domain**
   - Inner layer
@@ -53,12 +65,13 @@ Follow the diagram below and the teardown section for better understanding.
   - Defines the system use cases:
     - Dynamic price
     - Dynamic price calculator
+    - Data source
 
 - **Data**
   - Depends on domain layer
   - In this layer use cases are called **application services**
   - Dynamic price service
-    - Depends on httpClient to request data **(THIS WILL CHANGE LATER)**
+    - Depends on Data Source
     - Depends on Dynamic price calculator service
   - Dynamic price calculator
     - Calculates a dynamic price
@@ -70,16 +83,16 @@ Follow the diagram below and the teardown section for better understanding.
     - http
       - Axios - http client
       - Express - http server
-    - database **(TODO)**
-      - Postgres Repository **(TODO)**
+    - database
+      - Postgres Repository
 
 - **Presentation**
   - Depends on data layer
   - Implements abstract class Controller
-    - Controller has perform method, it will be implemented by specific controllers **(WHY INHERITANCE AND NOT INTERFACE, ADD COMMENT LATER)**
+    - Controller has perform method, it will be implemented by specific controllers
   - Implements Dynamic price Controller
 
 - **Main**
-  - Depends on presentation, infra and data layer **(ADD ARROW ON DIAGRAM TO PRESENTATION LATER)**
+  - Depends on presentation, infra and data layer
   - This layer will bootstrap all necessary instances to fulfill dependency injection and return a webserver
   - Http routes uses Express adapter and factory methods
