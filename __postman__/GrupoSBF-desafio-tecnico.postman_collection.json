@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "422c83c2-c5a1-4b39-9439-20466c81397d",
+		"name": "GrupoSBF-desafio-tecnico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20442102"
+	},
+	"item": [
+		{
+			"name": "[DEV]dynamic-price",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://develop-gruposbf-cc.herokuapp.com/gruposbf/v1/convert/price/529.99/code/BRL/codein/USD,EUR,INR",
+					"protocol": "https",
+					"host": [
+						"develop-gruposbf-cc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"gruposbf",
+						"v1",
+						"convert",
+						"price",
+						"529.99",
+						"code",
+						"BRL",
+						"codein",
+						"USD,EUR,INR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[PRD]dynamic-price",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://production-gruposbf-cc.herokuapp.com/gruposbf/v1/convert/price/529.99/code/BRL/codein/USD,EUR,INR",
+					"protocol": "https",
+					"host": [
+						"production-gruposbf-cc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"gruposbf",
+						"v1",
+						"convert",
+						"price",
+						"529.99",
+						"code",
+						"BRL",
+						"codein",
+						"USD,EUR,INR"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
