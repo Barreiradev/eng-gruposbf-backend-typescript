@@ -11,11 +11,20 @@ class DataSouceService implements DataSourceInterface {
   ) {}
 
   async execute (params: DataSource.Input): Promise<DataSource.Output> {
-    const httpPromise = await this.httpClient.request({
+    const httpPromise = this.httpClient.request({
       url: params.url ?? '_NOT_INFORMED_URL',
       method: params.httpMethod ?? 'get'
     })
     const httpResponse = await Promise.all([httpPromise])
+    if (httpResponse[0].statusCode !== 200) {
+      return {
+        data: '[CALL SECOND DATA SOURCE]',
+        datasource: new DataSourceInfo({
+          sourceParam: DataSources.DATABASE,
+          requestDateParam: new Date(Date.now()).toString()
+        })
+      }
+    }
     return {
       data: httpResponse,
       datasource: new DataSourceInfo({
@@ -35,6 +44,10 @@ describe('Data Sources service', () => {
     sut = new DataSouceService(httpClient)
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should use httpclient as primary data source', async () => {
     const dataSourceOptions = {
       url: 'https:any_url.com',
@@ -52,6 +65,28 @@ describe('Data Sources service', () => {
     expect(spyHttpClient).toHaveBeenCalledWith({
       url: dataSourceOptions.url,
       method: dataSourceOptions.httpMethod
+    })
+  })
+
+  it('should call second data source if primary data source fails', async () => {
+    const dataSourceOptions = {
+      url: 'https:any_url.com',
+      httpMethod: 'get' as HttpMethod
+    }
+
+    jest.spyOn(httpClient, 'request').mockResolvedValueOnce({
+      statusCode: 400,
+      body: new Error('[SOMETHING WENT WRONG]')
+    })
+
+    const response = await sut.execute(dataSourceOptions)
+
+    expect(response).toEqual({
+      data: '[CALL SECOND DATA SOURCE]',
+      datasource: new DataSourceInfo({
+        sourceParam: DataSources.DATABASE,
+        requestDateParam: new Date(Date.now()).toString()
+      })
     })
   })
 })
