@@ -1,9 +1,5 @@
+import { HttpMethod } from '@/data/gateways/http-gateway.interface'
 import DataSourceInfo from '../entities/datasourceinfo.entity'
-
-type DataSourceOption = {
-  url?: string
-  httpMethod?: string
-}
 
 export default interface DataSourceInterface {
   execute: (params: DataSource.Input) => Promise<DataSource.Output>
@@ -11,7 +7,8 @@ export default interface DataSourceInterface {
 
 export namespace DataSource {
   export type Input = {
-    dataSourceOptions: DataSourceOption
+    url?: string
+    httpMethod?: HttpMethod
   }
   export type Output = {
     data: any
