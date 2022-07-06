@@ -10,7 +10,7 @@ export class NumerableStringValidator {
     private readonly fieldName: string) {}
 
   validate (): Error | undefined {
-    const regex = /[0-9]/
+    const regex = /\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})/
     const minLengthRegex = new RegExp(regex)
     const executeRegex = minLengthRegex.test(this.value)
     if (!executeRegex) {
@@ -22,10 +22,17 @@ export class NumerableStringValidator {
 
 describe('NumerableStringValidator', () => {
   it('should return NotValidCharactersError if string has alphabetic characters', () => {
-    const sut = new NumerableStringValidator('not_valid_vatNumber', 'vatNumber')
+    const sut = new NumerableStringValidator('not_valid_vatNumber', 'price')
 
     const error = sut.validate()
 
-    expect(error).toEqual(new NotValidCharactersError('vatNumber', 'numbers'))
+    expect(error).toEqual(new NotValidCharactersError('price', 'numbers'))
+  })
+  it('should return empty if price is valid', () => {
+    const sut = new NumerableStringValidator('529.99', 'price')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(undefined)
   })
 })
