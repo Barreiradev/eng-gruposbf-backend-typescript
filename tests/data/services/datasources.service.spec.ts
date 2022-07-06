@@ -1,47 +1,48 @@
 import DataSourceInfo from '@/domain/entities/datasourceinfo.entity'
 import { DataSources } from '@/domain/entities/datasources.enum.entity'
-import DataSourceInterface, { DataSource } from '@/domain/features/datasources.interface'
 import AxiosHttpClient from '@/infra/http/axioshttpclient'
-import { GiveMeAValidWebServerResponse } from '../../mocks/http/mock-webserver-response'
 import { HttpMethod } from '@/data/gateways/http-gateway.interface'
+import { PgCurrencyDataRepository } from '@/infra/postgres/repos/currency-data'
+import DataSouceService from '@/data/services/datasource.service'
 
-class DataSouceService implements DataSourceInterface {
-  constructor (
-    private readonly httpClient: AxiosHttpClient
-  ) {}
+import { GiveMeAValidWebServerResponse } from '../../mocks/http/mock-webserver-response'
 
-  async execute (params: DataSource.Input): Promise<DataSource.Output> {
-    const httpPromise = this.httpClient.request({
-      url: params.url ?? '_NOT_INFORMED_URL',
-      method: params.httpMethod ?? 'get'
-    })
-    const httpResponse = await Promise.all([httpPromise])
-    if (httpResponse[0].statusCode !== 200) {
-      return {
-        data: '[CALL SECOND DATA SOURCE]',
-        datasource: new DataSourceInfo({
-          sourceParam: DataSources.DATABASE,
-          requestDateParam: new Date(Date.now()).toString()
-        })
-      }
-    }
-    return {
-      data: httpResponse,
-      datasource: new DataSourceInfo({
-        sourceParam: DataSources.THIRDPARTY,
-        requestDateParam: new Date(Date.now()).toString()
-      })
-    }
-  }
-}
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('Data Sources service', () => {
+  let currencyRepo: MockProxy<PgCurrencyDataRepository>
   let httpClient: AxiosHttpClient
   let sut: DataSouceService
 
+  const storedCurrencyData = [
+    {
+      id: 1,
+      reskey: 'BRLINR',
+      code: 'BRL',
+      codein: 'INR',
+      ask: '14.65',
+      create_date: '2022-07-06 09:54:02',
+      request_date: 'any_timestamp_from_database'
+    },
+    {
+      id: 2,
+      reskey: 'BRLEUR',
+      code: 'BRL',
+      codein: 'EUR',
+      ask: '0.182',
+      create_date: '2022-07-06 09:54:02',
+      request_date: 'any_timestamp_from_database'
+    }
+  ]
+
+  beforeAll(() => {
+    currencyRepo = mock()
+    currencyRepo.load.mockResolvedValue(storedCurrencyData)
+  })
+
   beforeEach(() => {
     httpClient = new AxiosHttpClient()
-    sut = new DataSouceService(httpClient)
+    sut = new DataSouceService(httpClient, currencyRepo)
   })
 
   afterEach(() => {
@@ -82,7 +83,7 @@ describe('Data Sources service', () => {
     const response = await sut.execute(dataSourceOptions)
 
     expect(response).toEqual({
-      data: '[CALL SECOND DATA SOURCE]',
+      data: storedCurrencyData,
       datasource: new DataSourceInfo({
         sourceParam: DataSources.DATABASE,
         requestDateParam: new Date(Date.now()).toString()
