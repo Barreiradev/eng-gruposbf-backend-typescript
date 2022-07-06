@@ -34,6 +34,10 @@ npm run test
 ### Run project - without Docker
 
 ### Run project - with Docker
+**Run the below command inside project folder**
+```
+docker-compose up
+```
 
 ## Collections and utilities
 
