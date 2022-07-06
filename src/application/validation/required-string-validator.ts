@@ -2,7 +2,7 @@ import { RequiredFieldError } from '../errors/required-field-error'
 
 export class RequiredStringValidator {
   constructor (
-    private readonly value: string,
+    private readonly value: string | string[],
     private readonly fieldName: string
   ) {}
 
